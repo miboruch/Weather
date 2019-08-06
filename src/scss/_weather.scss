@@ -1,0 +1,22 @@
+.weather-section{
+  position: relative;
+}
+
+.weather-section::before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: url('../assets/img/sunset.jpg');
+  background-position: center;
+  background-size: cover;
+  filter: blur(1px);
+  z-index: -2;
+}
+
+.weather-heading{
+  padding: 0;
+  margin: 0;
+}

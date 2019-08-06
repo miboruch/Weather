@@ -14,6 +14,19 @@ module.exports = {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader?name=/assets/[name].[ext]',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
+      },
     ],
   },
   devServer: {
@@ -25,6 +38,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'subsites/home.html',
+      template: './src/subsites/home.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'subsites/weather.html',
+      template: './src/subsites/weather.html',
     }),
   ],
 };
