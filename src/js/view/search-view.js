@@ -9,9 +9,19 @@ let searchView = (function() {
     ui.cityInput.value = '';
   }
 
+  function addErrorClass() {
+    ui.cityInput.classList.add('city-input--error');
+  }
+
+  function removeErrorClass() {
+    ui.cityInput.classList.remove('city-input--error');
+  }
+
   return {
     clearInput: clearInput,
     getValueFromInput: getValueFromInput,
+    addErrorClass: addErrorClass,
+    removeErrorClass: removeErrorClass,
   };
 })();
 

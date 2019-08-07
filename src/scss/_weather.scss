@@ -1,5 +1,14 @@
+@import './variables';
+
 .weather-section{
   position: relative;
+  color: #fff;
+  text-align: center;
+  padding-top: 5em;
+  
+  p{
+    letter-spacing: 2px;
+  }
 }
 
 .weather-section::before{
@@ -17,6 +26,92 @@
 }
 
 .weather-heading{
-  padding: 0;
+  padding-top: 2em;
+}
+
+.temperature{
+  font-family: $font-name;
+}
+
+.weather-description{
   margin: 0;
+  font-size: $font-size-small;
+}
+
+.temperature{
+  font-size: 50px;
+  margin: 0;
+}
+
+.week-day{
+  font-size: $font-size-small;
+}
+
+.city{
+  font-size: 34px;
+  margin: .5rem;
+}
+
+.population{
+  font-size: 12px;
+}
+
+.country{
+  font-size: $font-size-small;
+  font-weight: bold;
+}
+
+.weather-wrapper{
+  width: 90%;
+  margin: auto;
+}
+
+.weather-list{
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2em;
+  padding: 0;
+
+  li{
+    width: 20%;
+    padding: 0 auto;
+    font-weight: bold;
+
+    p{
+      font-weight: normal;
+    }
+
+  }
+}
+
+.weather-info{
+  width: 90%;
+  margin: auto;
+}
+
+.weather-info-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  margin-top: 2em;
+
+  li{
+    width: 30%;
+    padding: 0 1em;
+    font-weight: bold;
+
+    p{
+      font-weight: normal;
+      font-size: $font-size-medium;
+    }
+  }
+}
+
+.hour{
+  font-weight: bold !important;
 }

@@ -39,13 +39,5 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
     }),
-    new HtmlWebpackPlugin({
-      filename: 'subsites/home.html',
-      template: './src/subsites/home.html',
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'subsites/weather.html',
-      template: './src/subsites/weather.html',
-    }),
   ],
 };
