@@ -20,32 +20,96 @@ let weatherView = (function() {
   function setWeatherInfo(weatherList, offset = 0) {
     ui.temperature.innerHTML = `${roundValues(weatherList[0 + offset].main.temp)}<sup>o</sup>`;
     ui.weatherDescription.innerHTML = weatherList[0 + offset].weather[0].main;
-    ui.firstTemp.innerHTML = ui.temperature.innerHTML;
-    ui.secondTemp.innerHTML = `${roundValues(weatherList[1 + offset].main.temp)}<sup>o</sup>`;
-    ui.thirdTemp.innerHTML = `${roundValues(weatherList[2 + offset].main.temp)}<sup>o</sup>`;
-    ui.fourthTemp.innerHTML = `${roundValues(weatherList[3 + offset].main.temp)}<sup>o</sup>`;
+    ui.time.innerHTML = `${calculateTime(weatherList[0 + offset].dt)}`;
+
+    let counter = 0;
+    ui.tempArray.map(item => {
+      item.innerHTML = `${roundValues(weatherList[counter + offset].main.temp)}<sup>o</sup>`;
+      counter++;
+    });
+
     ui.pressure.innerHTML = `${roundValues(weatherList[0 + offset].main.pressure)} hPa`;
     ui.humidity.innerHTML = `${weatherList[0 + offset].main.humidity}%`;
     ui.wind.innerHTML = `${roundValues(weatherList[0 + offset].wind.speed)} m/s`;
 
-    ui.firstHour.innerHTML = `${calculateTime(weatherList[0 + offset].dt)}`;
-    ui.secondHour.innerHTML = `${calculateTime(weatherList[1 + offset].dt)}`;
-    ui.thirdHour.innerHTML = `${calculateTime(weatherList[2 + offset].dt)}`;
-    ui.fourthHour.innerHTML = `${calculateTime(weatherList[3 + offset].dt)}`;
+    counter = 0;
+    ui.hourArray.map(item => {
+      item.innerHTML = `${calculateTime(weatherList[counter + offset].dt)}`;
+      counter++;
+    });
+
+    counter = 0;
+    ui.iconArray.map(item => {
+      let weatherDesc = weatherList[counter + offset].weather[0].main;
+      switch (weatherDesc) {
+        case 'Clouds':
+          item.src = './assets/clouds.svg';
+          break;
+        case 'Rain':
+          item.style.animation = 'icon-animation .5s ease';
+          item.src = './assets/rain.svg';
+          break;
+        case 'Snow':
+          item.src = './assets/snow.svg';
+          break;
+        case 'Clear':
+          item.style.animation = 'icon-animation .5s ease';
+          item.src = './assets/sun.svg';
+          break;
+        case 'Thunderstorm':
+          item.src = './assets/thunder.svg';
+          break;
+        default:
+          item.src = './assets/clouds.svg';
+      }
+      counter++;
+    });
+
+    let day = new Date(weatherList[0 + offset].dt * 1000);
+    ui.weekDay.innerHTML = ui.days[day.getDay()];
   }
 
-  function setWeather(cityInfo, weatherList, offset = 0) {
+  function setWeatherAll(cityInfo, weatherList, offset = 0) {
     setCityInfo(cityInfo);
     setWeatherInfo(weatherList, offset);
   }
 
-  function updateWeather(weatherList) {
-    setWeatherInfo(weatherList);
+  function setBackground(url) {
+    ui.wrapper.style.background = `url(${url})`;
+    ui.wrapper.style.backgroundPosition = 'center';
+    ui.wrapper.style.backgroundSize = 'cover';
+  }
+
+  function changeBackground() {
+    let weatherDesc = ui.weatherDescription.innerHTML;
+    let time = parseInt(ui.time.innerHTML.substring(0, 2));
+
+    if (time >= 23 || time <= 5) {
+      setBackground('../assets/night.jpg');
+    } else {
+      switch (weatherDesc) {
+        case 'Rain':
+          setBackground('../assets/rain.jpg');
+          break;
+        case 'Clouds':
+          setBackground('../assets/clouds.jpg');
+          break;
+        case 'Snow':
+          setBackground('../assets/snow.jpg');
+          break;
+        case 'Clear':
+          setBackground('../assets/clear.jpg');
+          break;
+        default:
+          setBackground('../assets/background.jpg');
+      }
+    }
   }
 
   return {
-    setWeather: setWeather,
-    updateWeather: updateWeather,
+    setWeather: setWeatherAll,
+    updateWeather: setWeatherInfo,
+    changeBackground: changeBackground,
   };
 })();
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="652.041" height="632.201" viewBox="0 0 652.041 632.201">
+  <g id="snow" transform="translate(-429 -511.299)">
+    <path id="Path_1" data-name="Path 1" d="M338.273,110.7c.828,0,1.5.058,1.887.077A162.32,162.32,0,0,1,499.017,250.519,125.6,125.6,0,0,1,494.955,500.8v.5H96.446v-.385a103.366,103.366,0,0,1,1.348-206.349,125.868,125.868,0,0,1,86.667-73.538A162.388,162.388,0,0,1,338.273,110.7Zm0,6.68a155.641,155.641,0,0,0-147.5,105.764l-1.155,3.465-3.581.866a119.584,119.584,0,0,0-82.124,69.688l-1.617,3.831-4.12.212a96.7,96.7,0,0,0-1.289,193.046l5.332.385H488.255v-.077l6.237-.423C556.653,489.883,605.3,437.79,605.3,375.515A118.541,118.541,0,0,0,498.362,257.181l-5.218-.558-.712-5.179c-10.53-75.521-76.021-133.119-152.351-134.023h-.75c-.268-.021-.634-.04-1.058-.04Z" transform="translate(448.993 420.599)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_1" data-name="Line 1" y2="162" transform="translate(879.5 951.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_7" data-name="Line 7" y2="162" transform="translate(642.5 981.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_2" data-name="Line 2" x2="159" transform="translate(798.5 1030.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_8" data-name="Line 8" x2="159" transform="translate(561.5 1060.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_3" data-name="Line 3" x2="119" y2="119" transform="translate(821.5 971.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_5" data-name="Line 5" x2="119" y2="119" transform="translate(584.5 1001.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_4" data-name="Line 4" x1="114" y2="114" transform="translate(821.5 975.5)" fill="none" stroke="#fff" stroke-width="40"/>
+    <line id="Line_6" data-name="Line 6" x1="114" y2="114" transform="translate(584.5 1005.5)" fill="none" stroke="#fff" stroke-width="40"/>
+  </g>
+</svg>

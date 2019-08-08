@@ -2,7 +2,7 @@
 @import './header';
 @import './weather';
 @import './variables';
-@import './home';
+@import './media';
 
 * {
   box-sizing: border-box;
@@ -10,6 +10,7 @@
 
 html{
   width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }

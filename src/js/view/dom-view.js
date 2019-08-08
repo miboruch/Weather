@@ -1,5 +1,6 @@
 let ui = (function() {
-  let hamburger = document.querySelector('.hamburger'),
+  let wrapper = document.querySelector('.wrapper'),
+    hamburger = document.querySelector('.hamburger'),
     innerHamburger = document.querySelector('.inner-hamburger'),
     header = document.querySelector('.main-header'),
     cityForm = document.querySelector('.city-form'),
@@ -14,23 +15,39 @@ let ui = (function() {
     city = document.querySelector('.city'),
     population = document.querySelector('.population'),
     country = document.querySelector('.country'),
-    firstTemp = document.querySelector('.first-temp'),
-    secondTemp = document.querySelector('.second-temp'),
-    thirdTemp = document.querySelector('.third-temp'),
-    fourthTemp = document.querySelector('.fourth-temp'),
+    tempArray = [
+      document.querySelector('.first-temp'),
+      document.querySelector('.second-temp'),
+      document.querySelector('.third-temp'),
+      document.querySelector('.fourth-temp'),
+    ],
     pressure = document.querySelector('.pressure'),
     humidity = document.querySelector('.humidity'),
     wind = document.querySelector('.wind'),
-    firstHour = document.querySelector('.first-hour'),
-    secondHour = document.querySelector('.second-hour'),
-    thirdHour = document.querySelector('.third-hour'),
-    fourthHour = document.querySelector('.fourth-hour');
+    hourArray = [
+      document.querySelector('.first-hour'),
+      document.querySelector('.second-hour'),
+      document.querySelector('.third-hour'),
+      document.querySelector('.fourth-hour'),
+    ],
+    iconArray = [
+      document.querySelector('.first-icon'),
+      document.querySelector('.second-icon'),
+      document.querySelector('.third-icon'),
+      document.querySelector('.fourth-icon'),
+    ],
+    range = document.querySelector('.range'),
+    time = document.querySelector('.time');
+
+  let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   function closeMenu() {
     header.classList.remove('main-header--open');
     innerHamburger.classList.remove('inner-hamburger--open');
     cityForm.classList.remove('city-form--open');
   }
+
+  range.disabled = true;
 
   hamburger.addEventListener('click', function() {
     header.classList.toggle('main-header--open');
@@ -42,6 +59,7 @@ let ui = (function() {
   });
 
   return {
+    wrapper: wrapper,
     cityInput: cityInput,
     searchButton: searchButton,
     currentLocationButton: currentLocationButton,
@@ -53,17 +71,15 @@ let ui = (function() {
     city: city,
     population: population,
     country: country,
-    firstTemp: firstTemp,
-    secondTemp: secondTemp,
-    thirdTemp: thirdTemp,
-    fourthTemp: fourthTemp,
+    tempArray: tempArray,
+    iconArray: iconArray,
     pressure: pressure,
     humidity: humidity,
     wind: wind,
-    firstHour: firstHour,
-    secondHour: secondHour,
-    thirdHour: thirdHour,
-    fourthHour: fourthHour,
+    hourArray: hourArray,
+    days: days,
+    range: range,
+    time: time,
   };
 })();
 

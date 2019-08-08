@@ -19,7 +19,6 @@
         <ul class='main-list'>
           <li class='home'>HOME</li>
           <li class='weather'>Weather</li>
-          <li class='note'>Take note</li>
         </ul>
       </nav>
       <form class='city-form'>
@@ -32,17 +31,18 @@
     <div class="place">
       <section class='weather-section'>
         <p class='weather-description'>Sunset</p>
-        <p class='temperature'>10 <sup>o</sup>C</p>
-        <p class='week-day'>Tuesday</p>
-        <p class='city'>Krakow</p>
-        <p class='population'>100000</p>
+        <p class='temperature'>10<sup>o</sup>C</p>
+        <p class='week-day'>Monday</p>
+        <p class='time'>20:00:00</p>
+        <p class='city'>Warsaw</p>
+        <p class='population'>1 000 000</p>
         <p class='country'>Poland</p>
         <section class='weather-wrapper'>
           <ul class='weather-list'>
-            <li><p class='first-hour hour'>Now</p><p class='first-temp'>11<sup>o</sup></p></li>
-            <li><p class='second-hour hour'>14</p><p class='second-temp'>12<sup>o</sup></p></li>
-            <li><p class='third-hour hour'>15</p><p class='third-temp'>10<sup>o</sup></p></li>
-            <li><p class='fourth-hour hour'>16</p><p class='fourth-temp'>9<sup>o</sup></p></li>
+            <li><p class='first-hour hour'>Now</p><img src = './assets/clouds.svg' class='first-icon icon'><p class='first-temp'>11<sup>o</sup></p></li>
+            <li><p class='second-hour hour'>14</p><img src = './assets/sun.svg' class='second-icon icon'><p class='second-temp'>12<sup>o</sup></p></li>
+            <li><p class='third-hour hour'>15</p><img src = './assets/snow.svg' class='third-icon icon'><p class='third-temp'>10<sup>o</sup></p></li>
+            <li><p class='fourth-hour hour'>16</p><img src = './assets/thunder.svg' class='fourth-icon icon'><p class='fourth-temp'>9<sup>o</sup></p></li>
           </ul>
         </section>
         <section class='weather-info'>
@@ -52,6 +52,9 @@
             <li>Wind<p class='wind'>2 m/s</p></li>
           </ul>
         </section>
+        <div class="range-wrapper">
+          <input type='range' class='range' value='0' min='0' max='20' step='0.2'>
+        </div>
       </section>
     </div>
   </div>

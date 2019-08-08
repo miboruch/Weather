@@ -6,9 +6,27 @@ import ui from './view/dom-view';
 import searchView from './view/search-view';
 import weatherView from './view/weather-view';
 
+let state = {
+  /* result: */
+  /* 
+     Result value will be the result of every data fetch.
+     Then we will be able to access those values from 
+     every event listener.
+   */
+};
+
 ui.home.addEventListener('click', function() {
   ui.closeMenu();
 });
+
+function getWeatherInfo(dataResult) {
+  let weather = new Weather(dataResult);
+  let cityInfo = weather.getPlaceInfo();
+  let weatherHourly = weather.getHourlyWeather();
+  state.result = weatherHourly;
+
+  weatherView.setWeather(cityInfo, weatherHourly);
+}
 
 ui.currentLocationButton.addEventListener('click', function() {
   navigator.geolocation.getCurrentPosition(async function(position) {
@@ -16,17 +34,17 @@ ui.currentLocationButton.addEventListener('click', function() {
     let long = position.coords.longitude;
 
     let currentCity = [lat, long];
-    console.log(currentCity);
 
     try {
       let search = new Search();
       let result = await search.getWeatherByLatLong(currentCity);
 
-      let weather = new Weather(result);
-      let cityInfo = weather.getPlaceInfo();
-      let weatherHourly = weather.getHourWeather();
+      getWeatherInfo(result);
 
-      weatherView.setWeather(cityInfo, weatherHourly);
+      weatherView.changeBackground();
+
+      ui.closeMenu();
+      ui.range.disabled = false;
     } catch (e) {
       console.log(e);
     }
@@ -39,19 +57,20 @@ ui.searchButton.addEventListener('click', async function() {
     let citySearch = new Search(cityName);
     let result = await citySearch.getWeatherByCity();
 
-    let weather = new Weather(result);
-    let cityInfo = weather.getPlaceInfo();
-    let weatherHourly = weather.getHourWeather();
+    getWeatherInfo(result);
 
-    weatherView.setWeather(cityInfo, weatherHourly);
-
-    console.log(result);
     searchView.clearInput();
-
     searchView.removeErrorClass();
+
+    weatherView.changeBackground();
     ui.closeMenu();
+    ui.range.disabled = false;
   } catch (e) {
     searchView.addErrorClass();
     console.log(e);
   }
+});
+
+ui.range.addEventListener('input', function() {
+  weatherView.updateWeather(state.result, parseInt(this.value));
 });

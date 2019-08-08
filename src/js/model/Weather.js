@@ -3,7 +3,7 @@ export default class Weather {
     this.weatherData = weatherData;
   }
 
-  getHourWeather() {
+  getHourlyWeather() {
     return this.weatherData.list;
   }
 
