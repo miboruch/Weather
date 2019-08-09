@@ -8,6 +8,14 @@
   .range-wrapper{
     margin-top: 2em;
   }
+
+  .city-form{
+    top: 50%;
+  }
+
+  .result-cities li{
+    margin-top: .5em;
+  }
 }
 
 @media all and (min-width: $mq-tablet){
@@ -21,6 +29,18 @@
 
   .range-wrapper{
     width: 60%;
+  }
+
+  .result-cities{
+    margin: 3em 0;
+  }
+
+  .search-button{
+    width: 200px;
+  }
+
+  .city-form{
+    width: 50%;
   }
 }
 

@@ -35,7 +35,7 @@
 
 .main-nav{
   position: absolute;
-  top: 15%;
+  top: 5%;
   left: 1rem;
 }
 
@@ -74,7 +74,7 @@ label{
   flex-direction: column;
   width: 90%;
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 30%;
   transform: translate(-50%, -50%);
   opacity: 0;
@@ -126,6 +126,47 @@ label{
   cursor: pointer;
   border-color: #04D98B;
 }
+
+.result-cities{
+  width: 100%;
+  margin: 1em 0;
+  text-align: center;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+
+  li{
+    font-size: 13px;
+    letter-spacing: 2px;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 0 1em;
+    padding-left: 0;
+
+    p{
+      padding: 0 .2em;
+      margin: .2em 0;
+    }
+
+  }
+
+  li:hover{
+    color: #04D98B;
+    transition: all .5s ease;
+    cursor: pointer;
+  }
+}
+
+.rendered-city-name{
+  font-weight: bold;
+}
+
 
 .weather{
   cursor: pointer;

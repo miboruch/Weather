@@ -37,7 +37,8 @@ let ui = (function() {
       document.querySelector('.fourth-icon'),
     ],
     range = document.querySelector('.range'),
-    time = document.querySelector('.time');
+    time = document.querySelector('.time'),
+    resultCities = document.querySelector('.result-cities');
 
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -80,6 +81,7 @@ let ui = (function() {
     days: days,
     range: range,
     time: time,
+    resultCitiesList: resultCities,
   };
 })();
 

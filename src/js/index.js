@@ -6,6 +6,8 @@ import ui from './view/dom-view';
 import searchView from './view/search-view';
 import weatherView from './view/weather-view';
 
+import { getAllCities, searchCity } from './model/Search';
+
 let state = {
   /* result: */
   /* 
@@ -28,6 +30,22 @@ function getWeatherInfo(dataResult) {
   weatherView.setWeather(cityInfo, weatherHourly);
 }
 
+async function getWholeResult(cityName, cityCountry) {
+  let citySearch = new Search(cityName, cityCountry);
+  let result = await citySearch.getWeatherByCity();
+
+  getWeatherInfo(result);
+
+  searchView.clearInput();
+  searchView.removeCities();
+  searchView.removeErrorClass();
+
+  weatherView.changeBackground();
+  ui.closeMenu();
+  ui.range.disabled = false;
+}
+
+/* Current location button controller */
 ui.currentLocationButton.addEventListener('click', function() {
   navigator.geolocation.getCurrentPosition(async function(position) {
     let lat = position.coords.latitude;
@@ -51,26 +69,43 @@ ui.currentLocationButton.addEventListener('click', function() {
   });
 });
 
+/* Search button by city name controller */
 ui.searchButton.addEventListener('click', async function() {
   try {
     let cityName = searchView.getValueFromInput();
-    let citySearch = new Search(cityName);
-    let result = await citySearch.getWeatherByCity();
 
-    getWeatherInfo(result);
+    let allCities = await getAllCities(); /* Fetch list of all cities */
+    let foundCity = searchCity(allCities, cityName); /* It can return more than 1 result */
 
-    searchView.clearInput();
-    searchView.removeErrorClass();
+    searchView.removeCities();
 
-    weatherView.changeBackground();
-    ui.closeMenu();
-    ui.range.disabled = false;
+    /* Check if we have more than 1 city with typed name */
+    if (foundCity.length !== 1) {
+      foundCity.map(item => {
+        searchView.renderCities(item); /* Render list with cities */
+      });
+
+      /* Get name and country of city and get the result */
+      ui.resultCitiesList.addEventListener('click', function(e) {
+        let finalCityName = e.target.parentNode.querySelector('.rendered-city-name').innerHTML;
+        let finalCityCountry = e.target.parentNode.querySelector('.rendered-city-country').innerHTML;
+
+        getWholeResult(finalCityName, finalCityCountry);
+      });
+    } else {
+      let { name, country } = foundCity[0];
+      console.log(name, country);
+
+      getWholeResult(name, country);
+    }
   } catch (e) {
     searchView.addErrorClass();
+    searchView.removeCities();
     console.log(e);
   }
 });
 
+/* Range input controller */
 ui.range.addEventListener('input', function() {
   weatherView.updateWeather(state.result, parseInt(this.value));
 });

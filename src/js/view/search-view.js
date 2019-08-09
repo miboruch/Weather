@@ -17,11 +17,32 @@ let searchView = (function() {
     ui.cityInput.classList.remove('city-input--error');
   }
 
+  function roundTo2(value) {
+    return Math.round(value * 100) / 100;
+  }
+
+  function renderCities(city) {
+    const markup = `
+      <li>
+        <p class='rendered-city-name'>${city.name}</p>
+        <p class='rendered-city-country'>${city.country}</p>
+        <p class='rendered-city-coords'>Longitude: ${roundTo2(city.lon)}, Latitude: ${roundTo2(city.lat)}</p>
+      </li>
+    `;
+    ui.resultCitiesList.insertAdjacentHTML('beforeend', markup);
+  }
+
+  function removeCities() {
+    ui.resultCitiesList.innerHTML = '';
+  }
+
   return {
     clearInput: clearInput,
     getValueFromInput: getValueFromInput,
     addErrorClass: addErrorClass,
     removeErrorClass: removeErrorClass,
+    renderCities: renderCities,
+    removeCities: removeCities,
   };
 })();
 
