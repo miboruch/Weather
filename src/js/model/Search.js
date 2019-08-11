@@ -34,10 +34,8 @@ export default class Search {
 
 async function getAllCities() {
   try {
-    console.time('test');
     let data = await fetch('../city.list.json');
     let result = await data.json();
-    console.timeEnd('test');
 
     return result;
   } catch (e) {
@@ -45,22 +43,13 @@ async function getAllCities() {
   }
 }
 
-function searchCity(allCities, cityName) {
-  console.time('loop');
+function searchCity(cityName, allCities) {
   let cities = [];
   allCities.forEach(item => {
     if (item.name === cityName) {
-      let city = {
-        name: item.name,
-        country: item.country,
-        lon: item.coord.lon,
-        lat: item.coord.lat,
-      };
-      cities = [...cities, city];
+      cities = [...cities, item];
     }
   });
-
-  console.timeEnd('loop');
 
   return cities.length === 0
     ? (function() {

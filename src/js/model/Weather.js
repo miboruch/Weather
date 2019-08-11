@@ -3,11 +3,11 @@ export default class Weather {
     this.weatherData = weatherData;
   }
 
-  getHourlyWeather() {
-    return this.weatherData.list;
-  }
-
   getPlaceInfo() {
     return this.weatherData.city;
+  }
+
+  getHourlyWeather() {
+    return this.weatherData.list;
   }
 }

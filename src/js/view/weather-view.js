@@ -5,22 +5,36 @@ let weatherView = (function() {
     return parseInt(value);
   }
 
-  function calculateTime(weatherListTime) {
-    let time = new Date(weatherListTime * 1000);
-    let result = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    return result;
+  function getForecastTime(timezone, dateTxt) {
+    let cityTimezone = timezone / 3600; /* city timezone from API is returned in miliseconds */
+    let date = new Date(dateTxt);
+    let currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
+    date.setHours(date.getHours() + (cityTimezone + currentTimezone));
+
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function getCurrentTime(cityResult) {
+    let cityTimezone = cityResult.timezone / 3600; /* city timezone from API is returned in miliseconds */
+    let date = new Date();
+    let currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
+    date.setHours(date.getHours() + (cityTimezone + currentTimezone));
+
+    ui.weekDay.innerHTML = ui.days[date.getDay()]; /* Day of week is set by the current time in any location */
+
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   }
 
   function setCityInfo(placeInfo) {
     ui.city.innerHTML = placeInfo.name;
     ui.population.innerHTML = `Population: ${placeInfo.population}`;
     ui.country.innerHTML = placeInfo.country;
+    ui.time.innerHTML = `${getCurrentTime(placeInfo)}`;
   }
 
-  function setWeatherInfo(weatherList, offset = 0) {
+  function setWeatherInfo(placeInfo, weatherList, offset = 0) {
     ui.temperature.innerHTML = `${roundValues(weatherList[0 + offset].main.temp)}<sup>o</sup>`;
     ui.weatherDescription.innerHTML = weatherList[0 + offset].weather[0].main;
-    ui.time.innerHTML = `${calculateTime(weatherList[0 + offset].dt)}`;
 
     let counter = 0;
     ui.tempArray.map(item => {
@@ -34,7 +48,7 @@ let weatherView = (function() {
 
     counter = 0;
     ui.hourArray.map(item => {
-      item.innerHTML = `${calculateTime(weatherList[counter + offset].dt)}`;
+      item.innerHTML = `${getForecastTime(placeInfo.timezone, weatherList[counter + offset].dt_txt)}`;
       counter++;
     });
 
@@ -64,14 +78,11 @@ let weatherView = (function() {
       }
       counter++;
     });
-
-    let day = new Date(weatherList[0 + offset].dt * 1000);
-    ui.weekDay.innerHTML = ui.days[day.getDay()];
   }
 
   function setWeatherAll(cityInfo, weatherList, offset = 0) {
     setCityInfo(cityInfo);
-    setWeatherInfo(weatherList, offset);
+    setWeatherInfo(cityInfo, weatherList, offset);
   }
 
   function setBackground(url) {
@@ -107,7 +118,7 @@ let weatherView = (function() {
   }
 
   return {
-    setWeather: setWeatherAll,
+    setWeatherToDOM: setWeatherAll,
     updateWeather: setWeatherInfo,
     changeBackground: changeBackground,
   };

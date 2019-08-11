@@ -10,24 +10,27 @@ import { getAllCities, searchCity } from './model/Search';
 
 let state = {
   /* result: */
+  /* cityInfo: */
   /* 
      Result value will be the result of every data fetch.
-     Then we will be able to access those values from 
+     It will hold the array[40] of hourly forecast results.
+
+     CityInfo will have informations about the city, like
+     name, country, coords, population and timezone.
+
+     We will be able to access those values from 
      every event listener.
    */
 };
-
-ui.home.addEventListener('click', function() {
-  ui.closeMenu();
-});
 
 function getWeatherInfo(dataResult) {
   let weather = new Weather(dataResult);
   let cityInfo = weather.getPlaceInfo();
   let weatherHourly = weather.getHourlyWeather();
   state.result = weatherHourly;
+  state.cityInfo = cityInfo;
 
-  weatherView.setWeather(cityInfo, weatherHourly);
+  weatherView.setWeatherToDOM(cityInfo, weatherHourly);
 }
 
 async function getWholeResult(cityName, cityCountry) {
@@ -75,7 +78,7 @@ ui.searchButton.addEventListener('click', async function() {
     let cityName = searchView.getValueFromInput();
 
     let allCities = await getAllCities(); /* Fetch list of all cities */
-    let foundCity = searchCity(allCities, cityName); /* It can return more than 1 result */
+    let foundCity = searchCity(cityName, allCities); /* It can return more than 1 result */
 
     searchView.removeCities();
 
@@ -85,7 +88,7 @@ ui.searchButton.addEventListener('click', async function() {
         searchView.renderCities(item); /* Render list with cities */
       });
 
-      /* Get name and country of city and get the result */
+      /* Get name and country of clicked city and get the result */
       ui.resultCitiesList.addEventListener('click', function(e) {
         let finalCityName = e.target.parentNode.querySelector('.rendered-city-name').innerHTML;
         let finalCityCountry = e.target.parentNode.querySelector('.rendered-city-country').innerHTML;
@@ -94,7 +97,6 @@ ui.searchButton.addEventListener('click', async function() {
       });
     } else {
       let { name, country } = foundCity[0];
-      console.log(name, country);
 
       getWholeResult(name, country);
     }
@@ -107,5 +109,10 @@ ui.searchButton.addEventListener('click', async function() {
 
 /* Range input controller */
 ui.range.addEventListener('input', function() {
-  weatherView.updateWeather(state.result, parseInt(this.value));
+  weatherView.updateWeather(state.cityInfo, state.result, parseInt(this.value));
+});
+
+/* Close menu on click */
+ui.home.addEventListener('click', function() {
+  ui.closeMenu();
 });
