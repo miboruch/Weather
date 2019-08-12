@@ -1,17 +1,15 @@
 import ui from './dom-view';
 
 let weatherView = (function() {
-  function roundValues(value) {
-    return parseInt(value);
-  }
-
   function getForecastTime(timezone, dateTxt) {
     let cityTimezone = timezone / 3600; /* city timezone from API is returned in miliseconds */
     let date = new Date(dateTxt);
     let currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
     date.setHours(date.getHours() + (cityTimezone + currentTimezone));
 
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return [date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), ui.days[date.getDay()]];
+    /* Returns array, first value is a time in format 14:00 and so on. Second value is a day of week which will be set to the current
+       day of week on range input change */
   }
 
   function getCurrentTime(cityResult) {
@@ -22,7 +20,7 @@ let weatherView = (function() {
 
     ui.weekDay.innerHTML = ui.days[date.getDay()]; /* Day of week is set by the current time in any location */
 
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   function setCityInfo(placeInfo) {
@@ -33,50 +31,55 @@ let weatherView = (function() {
   }
 
   function setWeatherInfo(placeInfo, weatherList, offset = 0) {
-    ui.temperature.innerHTML = `${roundValues(weatherList[0 + offset].main.temp)}<sup>o</sup>`;
+    ui.temperature.innerHTML = `${parseInt(weatherList[0 + offset].main.temp)}<sup>o</sup>`;
     ui.weatherDescription.innerHTML = weatherList[0 + offset].weather[0].main;
 
-    let counter = 0;
-    ui.tempArray.map(item => {
-      item.innerHTML = `${roundValues(weatherList[counter + offset].main.temp)}<sup>o</sup>`;
-      counter++;
-    });
-
-    ui.pressure.innerHTML = `${roundValues(weatherList[0 + offset].main.pressure)} hPa`;
+    ui.pressure.innerHTML = `${parseInt(weatherList[0 + offset].main.pressure)} hPa`;
     ui.humidity.innerHTML = `${weatherList[0 + offset].main.humidity}%`;
-    ui.wind.innerHTML = `${roundValues(weatherList[0 + offset].wind.speed)} m/s`;
+    ui.wind.innerHTML = `${parseInt(weatherList[0 + offset].wind.speed)} m/s`;
 
-    counter = 0;
-    ui.hourArray.map(item => {
-      item.innerHTML = `${getForecastTime(placeInfo.timezone, weatherList[counter + offset].dt_txt)}`;
-      counter++;
+    ui.tempArray.forEach((item, index) => {
+      item.innerHTML = `${parseInt(weatherList[index + offset].main.temp)}<sup>o</sup>`;
     });
 
-    counter = 0;
-    ui.iconArray.map(item => {
-      let weatherDesc = weatherList[counter + offset].weather[0].main;
-      switch (weatherDesc) {
-        case 'Clouds':
-          item.src = './assets/clouds.svg';
-          break;
-        case 'Rain':
-          item.style.animation = 'icon-animation .5s ease';
-          item.src = './assets/rain.svg';
-          break;
-        case 'Snow':
-          item.src = './assets/snow.svg';
-          break;
-        case 'Clear':
-          item.style.animation = 'icon-animation .5s ease';
-          item.src = './assets/sun.svg';
-          break;
-        case 'Thunderstorm':
-          item.src = './assets/thunder.svg';
-          break;
-        default:
-          item.src = './assets/clouds.svg';
+    ui.hourArray.forEach((item, index) => {
+      item.innerHTML = `${getForecastTime(placeInfo.timezone, weatherList[index + offset].dt_txt)[0]}`;
+    });
+
+    ui.dayOfWeek.forEach((item, index) => {
+      item.innerHTML = `${getForecastTime(placeInfo.timezone, weatherList[index + offset].dt_txt)[1]}`;
+    });
+
+    ui.weekDay.innerHTML = ui.dayOfWeek[0].innerHTML;
+
+    ui.iconArray.forEach((item, index) => {
+      let weatherDesc = weatherList[index + offset].weather[0].main;
+      let time = parseInt(ui.hourArray[index].innerHTML.substring(0, 2));
+      if (time >= 23 || time <= 5) {
+        item.src = './assets/moon.svg';
+      } else {
+        switch (weatherDesc) {
+          case 'Clouds':
+            item.src = './assets/clouds.svg';
+            break;
+          case 'Rain':
+            item.style.animation = 'icon-animation .5s ease';
+            item.src = './assets/rain.svg';
+            break;
+          case 'Snow':
+            item.src = './assets/snow.svg';
+            break;
+          case 'Clear':
+            item.style.animation = 'icon-animation .5s ease';
+            item.src = './assets/sun.svg';
+            break;
+          case 'Thunderstorm':
+            item.src = './assets/thunder.svg';
+            break;
+          default:
+            item.src = './assets/clouds.svg';
+        }
       }
-      counter++;
     });
   }
 
@@ -117,10 +120,15 @@ let weatherView = (function() {
     }
   }
 
+  function setTimeOnRangeChange(placeInfo, value) {
+    value >= 0 && value < 1 ? (ui.time.innerHTML = `${getCurrentTime(placeInfo)}`) : (ui.time.innerHTML = ui.hourArray[0].innerHTML);
+  }
+
   return {
     setWeatherToDOM: setWeatherAll,
     updateWeather: setWeatherInfo,
     changeBackground: changeBackground,
+    setTimeOnRangeChange: setTimeOnRangeChange,
   };
 })();
 

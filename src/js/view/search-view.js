@@ -26,7 +26,7 @@ let searchView = (function() {
       <li>
         <p class='rendered-city-name'>${city.name}</p>
         <p class='rendered-city-country'>${city.country}</p>
-        <p class='rendered-city-coords'>Longitude: ${roundTo2(city.coord.lon)}, Latitude: ${roundTo2(city.coord.lat)}</p>
+        <p class='rendered-city-coords'>Lon: ${roundTo2(city.coord.lon)}, Lat: ${roundTo2(city.coord.lat)}</p>
       </li>
     `;
     ui.resultCitiesList.insertAdjacentHTML('beforeend', markup);

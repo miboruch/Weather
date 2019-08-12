@@ -110,6 +110,7 @@ ui.searchButton.addEventListener('click', async function() {
 /* Range input controller */
 ui.range.addEventListener('input', function() {
   weatherView.updateWeather(state.cityInfo, state.result, parseInt(this.value));
+  weatherView.setTimeOnRangeChange(state.cityInfo, this.value);
 });
 
 /* Close menu on click */

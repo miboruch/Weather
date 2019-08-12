@@ -13,8 +13,8 @@
     <button type='button' class='hamburger'>
       <div class='inner-hamburger'></div>
     </button>
+    <button type='button' class='current-location location fa fa-location-arrow'></button>
     <header class='main-header'>
-      <button type='button' class='current-location location fa fa-location-arrow'></button>
       <nav class='main-nav'>
         <ul class='main-list'>
           <li class='home'>HOME</li>
@@ -25,6 +25,9 @@
         <label for='input'>Enter city name</label>
         <input type='text' class='city-input' name='input'>
         <button type='button' class='search button'>Search</button>
+        <ul class='result-cities'>
+    
+        </ul>
       </form>
       
     </header>
@@ -39,10 +42,10 @@
         <p class='country'>Poland</p>
         <section class='weather-wrapper'>
           <ul class='weather-list'>
-            <li><p class='first-hour hour'>Now</p><p class='first-temp'>11<sup>o</sup></p></li>
-            <li><p class='second-hour hour'>14</p><p class='second-temp'>12<sup>o</sup></p></li>
-            <li><p class='third-hour hour'>15</p><p class='third-temp'>10<sup>o</sup></p></li>
-            <li><p class='fourth-hour hour'>16</p><p class='fourth-temp'>9<sup>o</sup></p></li>
+            <li><p class='hour'>Now</p><p class='day-of-week'>Monday</p><img src = './assets/clouds.svg' class='icon'><p class='temp'>11<sup>o</sup></p></li>
+            <li><p class='hour'>14</p><p class='day-of-week'>Monday</p><img src = './assets/sun.svg' class='icon'><p class='temp'>12<sup>o</sup></p></li>
+            <li><p class='hour'>15</p><p class='day-of-week'>Monday</p><img src = './assets/snow.svg' class='icon'><p class='temp'>10<sup>o</sup></p></li>
+            <li><p class='hour'>16</p><p class='day-of-week'>Monday</p><img src = './assets/thunder.svg' class='icon'><p class='temp'>9<sup>o</sup></p></li>
           </ul>
         </section>
         <section class='weather-info'>

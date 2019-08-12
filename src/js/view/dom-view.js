@@ -15,30 +15,16 @@ let ui = (function() {
     city = document.querySelector('.city'),
     population = document.querySelector('.population'),
     country = document.querySelector('.country'),
-    tempArray = [
-      document.querySelector('.first-temp'),
-      document.querySelector('.second-temp'),
-      document.querySelector('.third-temp'),
-      document.querySelector('.fourth-temp'),
-    ],
     pressure = document.querySelector('.pressure'),
     humidity = document.querySelector('.humidity'),
     wind = document.querySelector('.wind'),
-    hourArray = [
-      document.querySelector('.first-hour'),
-      document.querySelector('.second-hour'),
-      document.querySelector('.third-hour'),
-      document.querySelector('.fourth-hour'),
-    ],
-    iconArray = [
-      document.querySelector('.first-icon'),
-      document.querySelector('.second-icon'),
-      document.querySelector('.third-icon'),
-      document.querySelector('.fourth-icon'),
-    ],
+    tempArray = document.querySelectorAll('.temp'),
+    hourArray = document.querySelectorAll('.hour'),
+    iconArray = document.querySelectorAll('.icon'),
     range = document.querySelector('.range'),
     time = document.querySelector('.time'),
-    resultCities = document.querySelector('.result-cities');
+    resultCities = document.querySelector('.result-cities'),
+    dayOfWeek = document.querySelectorAll('.day-of-week');
 
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -82,6 +68,7 @@ let ui = (function() {
     range: range,
     time: time,
     resultCitiesList: resultCities,
+    dayOfWeek: dayOfWeek,
   };
 })();
 
