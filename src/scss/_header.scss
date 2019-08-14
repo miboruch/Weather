@@ -127,6 +127,16 @@ label{
   border-color: #04D98B;
 }
 
+.info{
+  color: #04D98B;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-align: left;
+  opacity: 1;
+  visibility: visible;
+  transition: visibility .4s ease, opacity .4s ease;
+}
+
 @keyframes display{
   0%{
     opacity: 0;

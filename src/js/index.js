@@ -28,8 +28,10 @@ let state = {
 };
 
 (async function() {
-  let allCities = await getAllCities();
-  state.allCities = allCities;
+  let allCities = await getAllCities(); /* Load data */
+  state.allCities = allCities; /* Save data to state */
+  ui.unblockButton();
+  ui.hideMessage();
 })();
 
 function getWeatherInfo(dataResult) {

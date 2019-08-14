@@ -24,6 +24,7 @@ let ui = (function() {
     range = document.querySelector('.range'),
     time = document.querySelector('.time'),
     resultCities = document.querySelector('.result-cities'),
+    info = document.querySelector('.info'),
     dayOfWeek = document.querySelectorAll('.day-of-week');
 
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -34,7 +35,19 @@ let ui = (function() {
     cityForm.classList.remove('city-form--open');
   }
 
+  function unblockButton() {
+    searchButton.disabled = false;
+    searchButton.style.opacity = 1;
+  }
+
+  function hideMessage() {
+    info.style.opacity = 0;
+    info.style.visibility = 'hidden';
+  }
+
   range.disabled = true;
+  searchButton.disabled = true;
+  searchButton.style.opacity = 0.5;
 
   hamburger.addEventListener('click', function() {
     header.classList.toggle('main-header--open');
@@ -69,6 +82,8 @@ let ui = (function() {
     time: time,
     resultCitiesList: resultCities,
     dayOfWeek: dayOfWeek,
+    unblockButton: unblockButton,
+    hideMessage: hideMessage,
   };
 })();
 
