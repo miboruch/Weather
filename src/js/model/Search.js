@@ -10,7 +10,7 @@ export default class Search {
   async getWeatherByCity() {
     try {
       let result = await axios(
-        `http://api.openweathermap.org/data/2.5/forecast?q=${this.city},${this.country}&APPID=${this.key}&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${this.city},${this.country}&APPID=${this.key}&units=metric`
       );
 
       return result.data;
@@ -21,7 +21,7 @@ export default class Search {
 
   async getWeatherByLatLong([lat, long]) {
     try {
-      let result = await axios(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&APPID=${this.key}&units=metric`);
+      let result = await axios(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&APPID=${this.key}&units=metric`);
 
       return result.data;
     } catch (e) {
