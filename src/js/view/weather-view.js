@@ -3,7 +3,7 @@ import ui from './dom-view';
 let weatherView = (function() {
   function getForecastTime(timezone, dateTxt) {
     let cityTimezone = timezone / 3600; /* city timezone from API is returned in miliseconds */
-    let date = new Date(dateTxt);
+    let date = new Date(dateTxt.replace(/\s/, 'T')); /* Convert date -SAFARI- */
     let currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
     date.setHours(date.getHours() + (cityTimezone + currentTimezone));
 
