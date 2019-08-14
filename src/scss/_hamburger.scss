@@ -6,26 +6,24 @@
   position: relative;
   padding: 0;
   border: none;
+  z-index: 999;
 }
 
 .hamburger{
   position: fixed;
   top: 1rem;
   left: 1rem;
-  z-index: 999;
   cursor: pointer;
 }
 
-.hamburger:focus{
-  outline: none;
+.location{
+  position: fixed !important;
 }
 
-// .location{
-//   position: absolute;
-//   top: 1rem;
-//   right: 1rem;
-//   border: 1px solid #fff;
-// }
+.hamburger:focus,
+.location:focus{
+  outline: none;
+}
 
 .inner-hamburger{
   position: relative;

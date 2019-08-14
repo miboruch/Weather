@@ -63,6 +63,7 @@ ui.currentLocationButton.addEventListener('click', function() {
       getWeatherInfo(result);
 
       weatherView.changeBackground();
+      ui.range.value = 0;
 
       ui.closeMenu();
       ui.range.disabled = false;
@@ -81,6 +82,7 @@ ui.searchButton.addEventListener('click', async function() {
     let foundCity = searchCity(cityName, allCities); /* It can return more than 1 result */
 
     searchView.removeCities();
+    ui.range.value = 0;
 
     /* Check if we have more than 1 city with typed name */
     if (foundCity.length !== 1) {
