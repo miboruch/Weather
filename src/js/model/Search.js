@@ -34,10 +34,10 @@ export default class Search {
 
 async function getAllCities() {
   try {
-    let data = await fetch('../city.list.json');
-    let result = await data.json();
+    let result = await fetch('../current.city.list.min.json');
+    let data = await result.json();
 
-    return result;
+    return data;
   } catch (e) {
     console.log(e);
   }
@@ -45,6 +45,7 @@ async function getAllCities() {
 
 function searchCity(cityName, allCities) {
   let cities = [];
+
   allCities.forEach(item => {
     if (item.name === cityName) {
       cities = [...cities, item];

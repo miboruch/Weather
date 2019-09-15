@@ -9,9 +9,9 @@ import weatherView from './view/weather-view';
 import { getAllCities, searchCity } from './model/Search';
 
 let state = {
-  /* result: */
-  /* cityInfo: */
-  /* allCities: */
+  result: null,
+  cityInfo: null,
+  allCities: null
   /* 
   Result value will be the result of every data fetch.
   It will hold the array[40] of hourly forecast results.
@@ -28,8 +28,10 @@ let state = {
 };
 
 (async function() {
-  let allCities = await getAllCities(); /* Load data */
-  state.allCities = allCities; /* Save data to state */
+  state.allCities = await getAllCities(); /* Load data */
+
+  getWholeResult('Warsaw', 'PL'); /* Default city on page load */
+
   ui.unblockButton();
   ui.hideMessage();
 })();
