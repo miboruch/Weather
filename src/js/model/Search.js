@@ -34,10 +34,11 @@ export default class Search {
 
 async function getAllCities() {
   try {
-    let data = await fetch('../city.list.json');
+    let data = await axios('../city.list.json');
     let result = await data.json();
 
     return result;
+
   } catch (e) {
     console.log(e);
   }

@@ -11,14 +11,14 @@ import { getAllCities, searchCity } from './model/Search';
 let state = {
   /* result: */
   /* cityInfo: */
-  /* 
+  /*
      Result value will be the result of every data fetch.
      It will hold the array[40] of hourly forecast results.
 
      CityInfo will have informations about the city, like
      name, country, coords, population and timezone.
 
-     We will be able to access those values from 
+     We will be able to access those values from
      every event listener.
    */
 };
@@ -77,7 +77,9 @@ ui.searchButton.addEventListener('click', async function() {
   try {
     let cityName = searchView.getValueFromInput();
 
+    console.time('test');
     let allCities = await getAllCities(); /* Fetch list of all cities */
+    console.timeEnd('test');
     let foundCity = searchCity(cityName, allCities); /* It can return more than 1 result */
 
     searchView.removeCities();
