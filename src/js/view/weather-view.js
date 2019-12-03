@@ -2,9 +2,9 @@ import ui from './dom-view';
 
 let weatherView = (function() {
   function getForecastTime(timezone, dateTxt) {
-    let cityTimezone = timezone / 3600; /* city timezone from API is returned in miliseconds */
-    let date = new Date(dateTxt.replace(/\s/, 'T')); /* Convert date -SAFARI- */
-    let currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
+    const cityTimezone = timezone / 3600; /* city timezone from API is returned in miliseconds */
+    const date = new Date(dateTxt.replace(/\s/, 'T')); /* Convert date -SAFARI- */
+    const currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
     date.setHours(date.getHours() + (cityTimezone + currentTimezone));
 
     return [date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), ui.days[date.getDay()]];
@@ -13,9 +13,9 @@ let weatherView = (function() {
   }
 
   function getCurrentTime(cityResult) {
-    let cityTimezone = cityResult.timezone / 3600; /* city timezone from API is returned in miliseconds */
-    let date = new Date();
-    let currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
+    const cityTimezone = cityResult.timezone / 3600; /* city timezone from API is returned in miliseconds */
+    const date = new Date();
+    const currentTimezone = date.getTimezoneOffset() / 60; /* current timezone is returned in minutes */
     date.setHours(date.getHours() + (cityTimezone + currentTimezone));
 
     ui.weekDay.innerHTML = ui.days[date.getDay()]; /* Day of week is set by the current time in any location */
@@ -52,33 +52,23 @@ let weatherView = (function() {
 
     ui.weekDay.innerHTML = ui.dayOfWeek[0].innerHTML;
 
-    ui.iconArray.forEach((item, index) => {
-      let weatherDesc = weatherList[index + offset].weather[0].main;
-      let time = parseInt(ui.hourArray[index].innerHTML.substring(0, 2));
+    ui.iconArray.forEach((element, index) => {
+      const iconList = ['moon.svg', 'Clouds.svg', 'Rain.svg', 'Snow.svg', 'Clear.svg', 'Thunderstorm.svg'];
+      const possibleWeatherCases = ['Clouds', 'Rain', 'Snow', 'Clear', 'Thunderstorm'];
+
+      const weatherDesc = weatherList[index + offset].weather[0].main;
+      const time = parseInt(ui.hourArray[index].innerHTML.substring(0, 2));
+
       if (time >= 23 || time <= 5) {
-        item.src = './assets/moon.svg';
+        element.src = './assets/moon.svg';
       } else {
-        switch (weatherDesc) {
-          case 'Clouds':
-            item.src = './assets/clouds.svg';
-            break;
-          case 'Rain':
-            item.style.animation = 'icon-animation .5s ease';
-            item.src = './assets/rain.svg';
-            break;
-          case 'Snow':
-            item.src = './assets/snow.svg';
-            break;
-          case 'Clear':
-            item.style.animation = 'icon-animation .5s ease';
-            item.src = './assets/sun.svg';
-            break;
-          case 'Thunderstorm':
-            item.src = './assets/thunder.svg';
-            break;
-          default:
-            item.src = './assets/clouds.svg';
-        }
+        possibleWeatherCases.map(item => {
+          switch (weatherDesc) {
+            case item:
+              element.src = `./assets/${iconList.filter(el => el.includes(item))}`;
+              break;
+          }
+        });
       }
     });
   }
@@ -95,28 +85,21 @@ let weatherView = (function() {
   }
 
   function changeBackground() {
-    let weatherDesc = ui.weatherDescription.innerHTML;
-    let time = parseInt(ui.time.innerHTML.substring(0, 2));
+    const backgroundList = ['Clouds.jpg', 'Rain.jpg', 'Snow.jpg', 'Clear.jpg'];
+    const possibleWeatherCases = ['Clouds', 'Rain', 'Snow', 'Clear'];
+
+    const weatherDesc = ui.weatherDescription.innerHTML;
+    const time = parseInt(ui.time.innerHTML.substring(0, 2));
 
     if (time >= 23 || time <= 5) {
       setBackground('../assets/night.jpg');
     } else {
-      switch (weatherDesc) {
-        case 'Rain':
-          setBackground('../assets/rain.jpg');
-          break;
-        case 'Clouds':
-          setBackground('../assets/clouds.jpg');
-          break;
-        case 'Snow':
-          setBackground('../assets/snow.jpg');
-          break;
-        case 'Clear':
-          setBackground('../assets/clear.jpg');
-          break;
-        default:
-          setBackground('../assets/background.jpg');
-      }
+      possibleWeatherCases.map(item => {
+        switch (weatherDesc) {
+          case item:
+            setBackground(`../assets/${backgroundList.filter(el => el.includes(item))}`);
+        }
+      });
     }
   }
 

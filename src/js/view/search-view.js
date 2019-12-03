@@ -1,6 +1,6 @@
 import ui from './dom-view';
 
-let searchView = (function() {
+const searchView = (function() {
   function getValueFromInput() {
     return ui.cityInput.value;
   }

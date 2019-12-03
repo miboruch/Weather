@@ -9,7 +9,7 @@ export default class Search {
 
   async getWeatherByCity() {
     try {
-      let result = await axios(
+      const result = await axios(
         `https://api.openweathermap.org/data/2.5/forecast?q=${this.city},${this.country}&APPID=${this.key}&units=metric`
       );
 
@@ -21,11 +21,11 @@ export default class Search {
 
   async getWeatherByLatLong([lat, long]) {
     try {
-      let result = await axios(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&APPID=${this.key}&units=metric`);
+      const result = await axios(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&APPID=${this.key}&units=metric`);
 
       return result.data;
     } catch (e) {
-      console.log(e);
+      throw new Error('You location is not available now');
     }
   }
 }
@@ -34,21 +34,21 @@ export default class Search {
 
 async function getAllCities() {
   try {
-    let result = await fetch('../current.city.list.min.json');
-    let data = await result.json();
+    const result = await axios('../city.list.json');
 
-    return data;
+    return result;
   } catch (e) {
-    console.log(e);
+    throw new Error('Error with loading all cities');
   }
 }
 
 function searchCity(cityName, allCities) {
-  let cities = [];
+  const cities = [];
+  const { data } = allCities;
 
-  allCities.forEach(item => {
+  data.forEach(item => {
     if (item.name === cityName) {
-      cities = [...cities, item];
+      cities.push(item);
     }
   });
 
